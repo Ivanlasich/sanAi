@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-configmap
+data:
+  stress_pod_memory.yml: |
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: memory-demo
+      namespace: default
+    spec:
+      containers:
+      - name: memory-demo-ctr
+        image: polinux/stress
+        resources:
+          limits:
+            memory: "200Mi"
+
+          requests:
+            memory: "200Mi"
+        command: ["stress"]
+        args: ["--vm", "1", "--vm-bytes", "250M", "--vm-hang", "1"]
+
+
